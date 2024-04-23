@@ -1,0 +1,503 @@
+Enter password: ***********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.19 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2020, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| emmanuel           |
+| information_schema |
+| mysql              |
+| patrick            |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> CREATE DATABASE akudo;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| akudo              |
+| emmanuel           |
+| information_schema |
+| mysql              |
+| patrick            |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> CREATE TABLE canada_sales (
+    ->     model VARCHAR(50),
+    ->     sales INT,
+    ->     category VARCHAR(20),
+    ->     year VARCHAR(10)
+    -> );
+ERROR 1046 (3D000): No database selected
+mysql> USE akudo;
+Database changed
+mysql> CREATE TABLE canada_sales (
+    ->     model VARCHAR(50),
+    ->     sales INT,
+    ->     category VARCHAR(20),
+    ->     year VARCHAR(10)
+    -> );
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> DESCRIBE canada_sales;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| model    | varchar(50) | YES  |     | NULL    |       |
+| sales    | int         | YES  |     | NULL    |       |
+| category | varchar(20) | YES  |     | NULL    |       |
+| year     | varchar(10) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.04 sec)
+
+mysql> LOAD DATA INFILE"C:\ProgramData\MySQL\MySQL Server 8.0\Uploads\Canadasalesdata.csv"INTO TABLE canada_sales
+    -> FIELDS TERMINATED BY ','
+    -> ENCLOSED BY '"'
+    -> LINES TERMINATED BY '\n'
+    -> IGNORE 1 ROWS;
+ERROR 29 (HY000): File 'C:\ProgramData\MySQL\MySQL Server 8.0\Data\ProgramDataMySQLMySQL Server 8.0UploadsCanadasalesdata.csv' not found (OS errno 2 - No such file or directory)
+mysql> LOAD DATA INFILE 'C:\\ProgramData\\MySQL\\MySQL Server 8.0\\Uploads\\Canadasalesdata.csv'
+    -> INTO TABLE canada_sales
+    -> FIELDS TERMINATED BY ','
+    -> ENCLOSED BY '"'
+    -> LINES TERMINATED BY '\n'
+    -> IGNORE 1 ROWS;
+Query OK, 236 rows affected (0.02 sec)
+Records: 236  Deleted: 0  Skipped: 0  Warnings: 0
+
+mysql> SELECT * FROM canada_sales;
++-------------------------------+-------+----------+-------+
+| model                         | sales | category | year  |
++-------------------------------+-------+----------+-------+
+ |Acura MDX                     |  2926 | MLS      | 2021
+ |Audi Q7                       |  1554 | MLS      | 2021
+ |Audi Q8                       |  1031 | MLS      | 2021
+ |BMW X5                        |  2544 | MLS      | 2021
+ |BMW X6                        |   559 | MLS      | 2021
+ |Cadillac XT5                  |  2884 | MLS      | 2021
+ |Cadillac XT6                  |   974 | MLS      | 2021
+ |Genesis GV80                  |   963 | MLS      | 2021
+ |Infiniti QX60                 |   687 | MLS      | 2021
+ |Jaguar F0Pace                 |   908 | MLS      | 2021
+ |Land Rover Defender           |  1057 | MLS      | 2021
+ |Land Rover Discovery / LR4    |   103 | MLS      | 2021
+ |Land Rover Range Rover Sport  |  1657 | MLS      | 2021
+ |Land Rover Range Rover Velar  |   769 | MLS      | 2021
+ |Lexus GX                      |   175 | MLS      | 2021
+ |Lexus RX                      |  5352 | MLS      | 2021
+ |Lincoln Aviator               |   926 | MLS      | 2021
+ |Lincoln MKX/Nautilus          |   860 | MLS      | 2021
+ |Maserati Levante              |   173 | MLS      | 2021
+ |Mercedes0Benz GLE0Class       |  3711 | MLS      | 2021
+ |Porsche Cayenne               |  1286 | MLS      | 2021
+ |Tesla Model X                 |   499 | MLS      | 2021
+ |Volvo XC90                    |  1398 | MLS      | 2021
+ |Acura MDX                     |  3921 | MLS      | 2020
+ |Audi Q7                       |  2248 | MLS      | 2020
+ |Audi Q8                       |  1323 | MLS      | 2020
+ |BMW X5                        |  4785 | MLS      | 2020
+ |BMW X6                        |  1028 | MLS      | 2020
+ |Cadillac XT5                  |  4217 | MLS      | 2020
+ |Cadillac XT6                  |  1491 | MLS      | 2020
+ |Genesis GV80                  |   296 | MLS      | 2020
+ |Infiniti QX60                 |  1833 | MLS      | 2020
+ |Jaguar F0Pace                 |  1446 | MLS      | 2020
+ |Land Rover Defender           |   829 | MLS      | 2020
+ |Land Rover Discovery / LR4    |   324 | MLS      | 2020
+ |Land Rover Range Rover Sport  |  2373 | MLS      | 2020
+ |Land Rover Range Rover Velar  |  1339 | MLS      | 2020
+ |Lexus GX                      |   523 | MLS      | 2020
+ |Lexus RX                      |  9228 | MLS      | 2020
+ |Lincoln Aviator               |  1941 | MLS      | 2020
+ |Lincoln MKX/Nautilus          |  1753 | MLS      | 2020
+ |Maserati Levante              |   227 | MLS      | 2020
+ |Mercedes0Benz GLE0Class       |  6150 | MLS      | 2020
+ |Porsche Cayenne               |  3150 | MLS      | 2020
+ |Tesla Model X                 |  1275 | MLS      | 2020
+ |Volvo XC90                    |  2389 | MLS      | 2020
+ |Alfa Romeo Stelvio            |   458 | MLS      | 2019
+ |Audi eTron                    |   490 | MLS      | 2019
+ |Audi Q3                       |  3734 | MLS      | 2019
+ |Audi Q5                       | 10855 | MLS      | 2019
+ |BMW X1                        |  4420 | MLS      | 2019
+ |BMW X2                        |  1383 | MLS      | 2019
+ |Cadillac XT4                  |  3517 | MLS      | 2019
+ |Infiniti QX30                 |    93 | MLS      | 2019
+ |Infiniti QX50                 |  3515 | MLS      | 2019
+ |Jaguar E0Pace                 |   417 | MLS      | 2019
+ |Land Rover Discovery Sport    |  1076 | MLS      | 2019
+ |Land Rover Range Rover Evoque |  1788 | MLS      | 2019
+ |Lexus NX                      |  7626 | MLS      | 2019
+ |Lexus UX                      |  2683 | MLS      | 2019
+ |Lincoln MKC                   |  2507 | MLS      | 2019
+ |Mercedes0Benz GLA0Class       |  3689 | MLS      | 2019
+ |Mercedes0Benz GLC/GLK0Class   | 10883 | MLS      | 2019
+ |Volvo XC40                    |  2132 | MLS      | 2019
+ |Volvo XC60                    |  3045 | MLS      | 2019
+ |Alfa Romeo Stelvio            |   307 | SLS      | 2021
+ |Audi eTron                    |   144 | SLS      | 2021
+ |Audi Q3                       |  4224 | SLS      | 2021
+ |Audi Q5                       |  5702 | SLS      | 2021
+ |BMW X1                        |  1616 | SLS      | 2021
+ |BMW X2                        |   495 | SLS      | 2021
+ |Cadillac XT4                  |  1805 | SLS      | 2021
+ |Infiniti QX50                 |  1080 | SLS      | 2021
+ |Infiniti QX55                 |   190 | SLS      | 2021
+ |Jaguar E0Pace                 |    80 | SLS      | 2021
+ |Land Rover Discovery Sport    |   402 | SLS      | 2021
+ |Land Rover Range Rover Evoque |   609 | SLS      | 2021
+ |Lexus NX                      |  4441 | SLS      | 2021
+ |Lexus UX                      |  1862 | SLS      | 2021
+ |Lincoln MKC                   |  1162 | SLS      | 2021
+ |Mercedes0Benz GLA0Class       |  1291 | SLS      | 2021
+ |Mercedes0Benz GLB             |  1474 | SLS      | 2021
+ |Mercedes0Benz GLC/GLK0Class   |  3806 | SLS      | 2021
+ |Tesla Model Y                 |  3199 | SLS      | 2021
+ |Volvo XC40                    |  1829 | SLS      | 2021
+ |Volvo XC60                    |  1226 | SLS      | 2021
+ |Alfa Romeo Stelvio            |   487 | SLS      | 2020
+ |Audi eTron                    |   548 | SLS      | 2020
+ |Audi Q3                       |  5949 | SLS      | 2020
+ |Audi Q5                       |  8048 | SLS      | 2020
+ |BMW X1                        |  2384 | SLS      | 2020
+ |BMW X2                        |   790 | SLS      | 2020
+ |Cadillac XT4                  |  3498 | SLS      | 2020
+ |Infiniti QX30                 |     3 | SLS      | 2020
+ |Infiniti QX50                 |  1897 | SLS      | 2020
+ |Jaguar E0Pace                 |   265 | SLS      | 2020
+ |Land Rover Discovery Sport    |   856 | SLS      | 2020
+ |Land Rover Range Rover Evoque |  1410 | SLS      | 2020
+ |Lexus NX                      |  6954 | SLS      | 2020
+ |Lexus UX                      |  2856 | SLS      | 2020
+ |Lincoln MKC                   |  2024 | SLS      | 2020
+ |Mercedes0Benz GLA0Class       |  1759 | SLS      | 2020
+ |Mercedes0Benz GLB             |  1776 | SLS      | 2020
+ |Mercedes0Benz GLC/GLK0Class   |  6983 | SLS      | 2020
+ |Tesla Model Y                 |  1100 | SLS      | 2020
+ |Volvo XC40                    |  2254 | SLS      | 2020
+ |Volvo XC60                    |  3148 | SLS      | 2020
+ |Alfa Romeo Stelvio            |   458 | SLS      | 2019
+ |Audi eTron                    |   490 | SLS      | 2019
+ |Audi Q3                       |  3734 | SLS      | 2019
+ |Audi Q5                       | 10855 | SLS      | 2019
+ |BMW X1                        |  4420 | SLS      | 2019
+ |BMW X2                        |  1383 | SLS      | 2019
+ |Cadillac XT4                  |  3517 | SLS      | 2019
+ |Infiniti QX30                 |    93 | SLS      | 2019
+ |Infiniti QX50                 |  3515 | SLS      | 2019
+ |Jaguar E0Pace                 |   417 | SLS      | 2019
+ |Land Rover Discovery Sport    |  1076 | SLS      | 2019
+ |Land Rover Range Rover Evoque |  1788 | SLS      | 2019
+ |Lexus NX                      |  7626 | SLS      | 2019
+ |Lexus UX                      |  2683 | SLS      | 2019
+ |Lincoln MKC                   |  2507 | SLS      | 2019
+ |Mercedes0Benz GLA0Class       |  3689 | SLS      | 2019
+ |Mercedes0Benz GLC/GLK0Class   | 10883 | SLS      | 2019
+ |Volvo XC40                    |  2132 | SLS      | 2019
+ |Volvo XC60                    |  3045 | SLS      | 2019
+ |BMW X7                        |   522 | LLS      | 2021
+ |Cadillac Escalade             |  1694 | LLS      | 2021
+ |Infiniti QX80                 |   476 | LLS      | 2021
+ |Land Rover Range Rover        |   775 | LLS      | 2021
+ |Lexus LX                      |   297 | LLS      | 2021
+ |Lincoln Navigator             |   642 | LLS      | 2021
+ |Mercedes0Benz G0Class         |   560 | LLS      | 2021
+ |Mercedes0Benz GL/GLS0Class    |  1148 | LLS      | 2021
+ |Toyota Land Cruiser           |   196 | LLS      | 2021
+ |BMW X7                        |  1345 | LLS      | 2020
+ |Cadillac Escalade             |  1755 | LLS      | 2020
+ |Infiniti QX80                 |   741 | LLS      | 2020
+ |Land Rover Range Rover        |  1153 | LLS      | 2020
+ |Lexus LX                      |   921 | LLS      | 2020
+ |Lincoln Navigator             |  1207 | LLS      | 2020
+ |Mercedes0Benz G0Class         |   925 | LLS      | 2020
+ |Mercedes0Benz GL/GLS0Class    |  2256 | LLS      | 2020
+ |Toyota Land Cruiser           |   325 | LLS      | 2020
+ |BMW X7                        |  1620 | LLS      | 2019
+ |Cadillac Escalade             |  2515 | LLS      | 2019
+ |Infiniti QX80                 |   935 | LLS      | 2019
+ |Land Rover Range Rover        |  1732 | LLS      | 2019
+ |Lexus LX                      |  1053 | LLS      | 2019
+ |Lincoln Navigator             |  1644 | LLS      | 2019
+ |Mercedes0Benz G0Class         |  1272 | LLS      | 2019
+ |Mercedes0Benz GL/GLS0Class    |  1947 | LLS      | 2019
+ |Toyota Land Cruiser           |   293 | LLS      | 2019
+ |Chevrolet Suburban            |  1199 | LS       | 2021
+ |Chevrolet Tahoe               |  2317 | LS       | 2021
+ |Ford Expedition               |  2605 | LS       | 2021
+ |GMC Yukon                     |  3874 | LS       | 2021
+ |Jeep Grand Wagoneer           |     4 | LS       | 2021
+ |Nissan Armada                 |   340 | LS       | 2021
+ |Toyota Sequoia                |   270 | LS       | 2021
+ |Chevrolet Suburban            |  1045 | LS       | 2020
+ |Chevrolet Tahoe               |  2625 | LS       | 2020
+ |Ford Expedition               |  4408 | LS       | 2020
+ |GMC Yukon                     |  3725 | LS       | 2020
+ |GMC Yukon XL                  |   498 | LS       | 2020
+ |Nissan Armada                 |   358 | LS       | 2020
+ |Toyota Sequoia                |   455 | LS       | 2020
+ |Chevrolet Suburban            |  2128 | LS       | 2019
+ |Chevrolet Tahoe               |  3562 | LS       | 2019
+ |Ford Expedition               |  4381 | LS       | 2019
+ |GMC Yukon                     |  2925 | LS       | 2019
+ |GMC Yukon XL                  |  2234 | LS       | 2019
+ |Nissan Armada                 |   593 | LS       | 2019
+ |Toyota Sequoia                |   543 | LS       | 2019
+ |Kia Sorento                   |  5971 | MS       | 2021
+ |Kia Telluride                 |  2824 | MS       | 2021
+ |Mazda CX09                    |  3299 | MS       | 2021
+ |Nissan Murano                 |  3691 | MS       | 2021
+ |Nissan Pathfinder             |  1421 | MS       | 2021
+ |Subaru Ascent                 |  2031 | MS       | 2021
+ |Subaru Outback                |  5992 | MS       | 2021
+ |Toyota 4Runner                |  4896 | MS       | 2021
+ |Toyota Highlander             | 12473 | MS       | 2021
+ |Volkswagen Atlas              |  6647 | MS       | 2021
+ |Buick Enclave                 |  1773 | MS       | 2020
+ |Chevrolet Blazer              |  3861 | MS       | 2020
+ |Chevrolet TrailBlazer         |  2487 | MS       | 2020
+ |Chevrolet Traverse            |  5319 | MS       | 2020
+ |Dodge Durango                 |  5667 | MS       | 2020
+ |Ford Bronco Sport             |   195 | MS       | 2020
+ |Ford Edge                     | 13213 | MS       | 2020
+ |Ford Explorer                 | 15283 | MS       | 2020
+ |Ford Flex                     |   124 | MS       | 2020
+ |GMC Acadia                    |  3109 | MS       | 2020
+ |Honda Passport                |  3017 | MS       | 2020
+ |Honda Pilot                   |  9340 | MS       | 2020
+ |Hyundai Palisade              |  8636 | MS       | 2020
+ |Hyundai Santa Fe              | 15721 | MS       | 2020
+ |Jeep Grand Cherokee           | 16967 | MS       | 2020
+ |Jeep Wrangler                 | 22707 | MS       | 2020
+ |Kia Sorento                   | 11821 | MS       | 2020
+ |Kia Telluride                 |  3474 | MS       | 2020
+ |Mazda CX09                    |  4887 | MS       | 2020
+ |Nissan Murano                 |  8091 | MS       | 2020
+ |Nissan Pathfinder             |  3392 | MS       | 2020
+ |Subaru Ascent                 |  3626 | MS       | 2020
+ |Subaru Outback                | 12556 | MS       | 2020
+ |Toyota 4Runner                |  7821 | MS       | 2020
+ |Toyota Highlander             | 16457 | MS       | 2020
+ |Volkswagen Atlas              |  9370 | MS       | 2020
+ |Volkswagen Touareg            |     2 | MS       | 2020
+ |Buick Enclave                 |  2934 | MS       | 2019
+ |Chevrolet Blazer              | 15210 | MS       | 2019
+ |Chevrolet Traverse            |  5778 | MS       | 2019
+ |Dodge Durango                 |  9620 | MS       | 2019
+ |Ford Edge                     | 19965 | MS       | 2019
+ |Ford Explorer                 |  9667 | MS       | 2019
+ |Ford Flex                     |  2492 | MS       | 2019
+ |GMC Acadia                    |  4357 | MS       | 2019
+ |Honda Passport                |  2678 | MS       | 2019
+ |Honda Pilot                   |  8241 | MS       | 2019
+ |Hyundai Palisade              |  3845 | MS       | 2019
+ |Hyundai Santa Fe              | 18929 | MS       | 2019
+ |Jeep Grand Cherokee           | 18659 | MS       | 2019
+ |Jeep Wrangler                 | 23185 | MS       | 2019
+ |Kia Sorento                   | 16054 | MS       | 2019
+ |Kia Telluride                 |  2997 | MS       | 2019
+ |Mazda CX09                    |  4422 | MS       | 2019
+ |Nissan Murano                 | 12000 | MS       | 2019
+ |Nissan Pathfinder             |  5704 | MS       | 2019
+ |Subaru Ascent                 |  4139 | MS       | 2019
+ |Subaru Outback                | 10972 | MS       | 2019
+ |Toyota 4Runner                |  8230 | MS       | 2019
+ |Toyota Highlander             | 13811 | MS       | 2019
+ |Volkswagen Atlas              |  8911 | MS       | 2019
+ |Volkswagen Touareg            |    26 | MS       | 2019
++-------------------------------+-------+----------+-------+
+236 rows in set (0.01 sec)
+
+mysql> SELECT SUM(SellingPrice) AS total_sales_amount
+    -> FROM canada_sales;
+ERROR 1054 (42S22): Unknown column 'SellingPrice' in 'field list'
+mysql> SELECT SUM(sales_amount) AS total_sales_amount
+    -> FROM canada_sales;
+ERROR 1054 (42S22): Unknown column 'sales_amount' in 'field list'
+mysql> SELECT SUM(sales) AS total_sales_amount
+    -> FROM canada_sales;
++--------------------+
+| total_sales_amount |
++--------------------+
+|             868665 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT ProductName, SUM(sales) AS total_sales
+    -> FROM canada_sales
+    -> GROUP BY ProductName
+    -> ORDER BY total_sales DESC
+    -> LIMIT 5;
+ERROR 1054 (42S22): Unknown column 'ProductName' in 'field list'
+mysql> SELECT model AS ProductName, SUM(sales) AS total_sales
+    -> FROM canada_sales
+    -> GROUP BY model
+    -> ORDER BY total_sales DESC
+    -> LIMIT 5;
++---------------------+-------------+
+| ProductName         | total_sales |
++---------------------+-------------+
+| Jeep Wrangler       |       45892 |
+| Toyota Highlander   |       42741 |
+| Jeep Grand Cherokee |       35626 |
+| Audi Q5             |       35460 |
+| Hyundai Santa Fe    |       34650 |
++---------------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT model AS ProductName, SUM(sales) AS total_sales
+    -> FROM canada_sales
+    -> GROUP BY model
+    -> ORDER BY total_sales ASC
+    -> LIMIT 5;
++---------------------+-------------+
+| ProductName         | total_sales |
++---------------------+-------------+
+| Jeep Grand Wagoneer |           4 |
+| Volkswagen Touareg  |          28 |
+| Infiniti QX30       |         189 |
+| Infiniti QX55       |         190 |
+| Ford Bronco Sport   |         195 |
++---------------------+-------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT model) AS distinct_model_count
+    -> FROM canada_sales;
++----------------------+
+| distinct_model_count |
++----------------------+
+|                   89 |
++----------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT model AS ProductName, SUM(sales) AS total_sales
+    -> FROM canada_sales
+    -> GROUP BY model
+    -> ORDER BY total_sales DESC;
++-------------------------------+-------------+
+| ProductName                   | total_sales |
++-------------------------------+-------------+
+| Jeep Wrangler                 |       45892 |
+| Toyota Highlander             |       42741 |
+| Jeep Grand Cherokee           |       35626 |
+| Audi Q5                       |       35460 |
+| Hyundai Santa Fe              |       34650 |
+| Kia Sorento                   |       33846 |
+| Ford Edge                     |       33178 |
+| Mercedes0Benz GLC/GLK0Class   |       32555 |
+| Subaru Outback                |       29520 |
+| Lexus NX                      |       26647 |
+| Ford Explorer                 |       24950 |
+| Volkswagen Atlas              |       24928 |
+| Nissan Murano                 |       23782 |
+| Toyota 4Runner                |       20947 |
+| Chevrolet Blazer              |       19071 |
+| Audi Q3                       |       17641 |
+| Honda Pilot                   |       17581 |
+| Dodge Durango                 |       15287 |
+| Lexus RX                      |       14580 |
+| BMW X1                        |       12840 |
+| Mazda CX09                    |       12608 |
+| Hyundai Palisade              |       12481 |
+| Cadillac XT4                  |       12337 |
+| Ford Expedition               |       11394 |
+| Chevrolet Traverse            |       11097 |
+| GMC Yukon                     |       10524 |
+| Nissan Pathfinder             |       10517 |
+| Volvo XC60                    |       10464 |
+| Mercedes0Benz GLA0Class       |       10428 |
+| Lexus UX                      |       10084 |
+| Infiniti QX50                 |       10007 |
+| Mercedes0Benz GLE0Class       |        9861 |
+| Subaru Ascent                 |        9796 |
+| Kia Telluride                 |        9295 |
+| Chevrolet Tahoe               |        8504 |
+| Volvo XC40                    |        8347 |
+| Lincoln MKC                   |        8200 |
+| GMC Acadia                    |        7466 |
+| BMW X5                        |        7329 |
+| Cadillac XT5                  |        7101 |
+| Acura MDX                     |        6847 |
+| Cadillac Escalade             |        5964 |
+| Honda Passport                |        5695 |
+| Land Rover Range Rover Evoque |        5595 |
+| Mercedes0Benz GL/GLS0Class    |        5351 |
+| Buick Enclave                 |        4707 |
+| Porsche Cayenne               |        4436 |
+| Chevrolet Suburban            |        4372 |
+| Tesla Model Y                 |        4299 |
+| BMW X2                        |        4051 |
+| Land Rover Range Rover Sport  |        4030 |
+| Audi Q7                       |        3802 |
+| Volvo XC90                    |        3787 |
+| Land Rover Range Rover        |        3660 |
+| Lincoln Navigator             |        3493 |
+| BMW X7                        |        3487 |
+| Land Rover Discovery Sport    |        3410 |
+| Mercedes0Benz GLB             |        3250 |
+| Lincoln Aviator               |        2867 |
+| Mercedes0Benz G0Class         |        2757 |
+| GMC Yukon XL                  |        2732 |
+| Ford Flex                     |        2616 |
+| Lincoln MKX/Nautilus          |        2613 |
+| Infiniti QX60                 |        2520 |
+| Chevrolet TrailBlazer         |        2487 |
+| Cadillac XT6                  |        2465 |
+| Jaguar F0Pace                 |        2354 |
+| Audi Q8                       |        2354 |
+| Lexus LX                      |        2271 |
+| Infiniti QX80                 |        2152 |
+| Land Rover Range Rover Velar  |        2108 |
+| Land Rover Defender           |        1886 |
+| Tesla Model X                 |        1774 |
+| Alfa Romeo Stelvio            |        1710 |
+| Audi eTron                    |        1672 |
+| BMW X6                        |        1587 |
+| Nissan Armada                 |        1291 |
+| Toyota Sequoia                |        1268 |
+| Genesis GV80                  |        1259 |
+| Jaguar E0Pace                 |        1179 |
+| Toyota Land Cruiser           |         814 |
+| Lexus GX                      |         698 |
+| Land Rover Discovery / LR4    |         427 |
+| Maserati Levante              |         400 |
+| Ford Bronco Sport             |         195 |
+| Infiniti QX55                 |         190 |
+| Infiniti QX30                 |         189 |
+| Volkswagen Touareg            |          28 |
+| Jeep Grand Wagoneer           |           4 |
++-------------------------------+-------------+
+89 rows in set (0.00 sec)
+
+mysql> SELECT model AS ProductName, SUM(sales) AS total_sales
+    -> FROM canada_sales
+    -> GROUP BY model
+    -> ORDER BY total_sales DESC
+    -> LIMIT 1;
++---------------+-------------+
+| ProductName   | total_sales |
++---------------+-------------+
+| Jeep Wrangler |       45892 |
++---------------+-------------+
+1 row in set (0.00 sec)
+
+mysql>
